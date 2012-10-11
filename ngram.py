@@ -64,7 +64,7 @@ def markov_dictionary(text, ngram):
 	#  			markov_dict[(text[index-1], text[index])] = [(text[index+1])]
 	#  			index += 1	
 	 			
-	print markov_dict
+	#print markov_dict
 	#print len(text)
 	return markov_dict
 
@@ -74,51 +74,56 @@ def markov_dictionary(text, ngram):
 
 def print_markov(text, ngram):
 	text_split = process_file(text)
-	print len(text_split)
+	#print len(text_split)
 	markov_dict = markov_dictionary(text, ngram)
-	rand_num=random.randrange(0,len(text_split)-1) 
-	key = []
-	key_index = 0
-	while key_index < ngram: # Placing every character from sample text into the string "key". 
-		key.append(text_split[rand_num]) #+" "+ str(text[index])
-		key_index +=1
-		rand_num +=1
-	key = " ".join(key)
+	keys = markov_dict.keys()
+	key = random.choice(keys)
+	val = random.choice(markov_dict[key])
+
+	keywords = key.split()
+
 	new_list = [ ]
-	new_list.append(key)
-	print new_list
-	i=0
-	desired_value =" "
-	foo =True
-	while foo:#this makes the while loop stop when there's a  #period at the end of a word
-		if len(new_list) <= 1:
-			desired_value = markov_dict[key]#desired_value=markov_dict.get(key) #
-			if len(desired_value)>1: #choose the random value inside the list of values
-				number = random.randrange(0,len(desired_value))
-				desired_value =desired_value[number]
-			else:
-				desired_value = desired_value[0]
-		# t = (new_list[i], new_list[i+1])
-		t = new_list[i]  # t contains key. t is a string
-		t = t.split()	# split the key into a list. t is now list.
-		t = t[1:]
-		str([desired_value])
-		if desired_value[-1] == ".":
-			foo = False  	# take all elements in the key list, skipping the zeroth element. Still a list.
-		t.append(desired_value) # append desired value to the key list { [b,c, "boo"]}. t now contains updated key. Still a list.
-		t = " ".join(t) #t=str(t) #t= t + " " #t = " ".join(t). t has to become a string. 
-		new_list.append(t)
-		desired_value = markov_dict[t]
-		#print type(desired_value)
-		i+=1
-		if len(desired_value)>1: #choose the random value inside the list of values
-			number = random.randrange(0,len(desired_value))
-			desired_value =desired_value[number]
-			#new_list.append(desired_value)	
-		else: # when there's only 1 element in the values list 
-			desired_value = desired_value[0]
-			#new_list.append(desired_value)
-	#stringifying process is here!
+	new_list.extend(keywords)
+	new_list.append(val)
+	#print new_list
+	last_word = val
+
+	while last_word[-1] not in '?.!': #"?.!": #this makes the while loop stop when there's a  #period at the end of a word
+		# ( w1 ... wn ) -> w( n+ 1)
+		# ( w2 .... wn + 1)
+
+		keywords = keywords[1:]
+		keywords.append(last_word)
+		new_val = markov_dict[" ".join(keywords)]
+		last_word = random.choice(new_val)
+		new_list.append(last_word)
+
+	#  Non-functional alternative	
+	#if len(new_list) <= 1:
+	# 		desired_value = markov_dict[key]#desired_value=markov_dict.get(key) #
+	# 		desired_value = random.choice(desired_value)
+	# 	# t = (new_list[i], new_list[i+1])
+	# 	t = new_list[i]  # t contains key. t is a string
+	# 	t = t.split()	# split the key into a list. t is now list.
+	# 	t = t[1:]
+	# 	str([desired_value])
+	# 	if desired_value[-1] == ".":
+	# 		foo = False  	# take all elements in the key list, skipping the zeroth element. Still a list.
+	# 	t.append(desired_value) # append desired value to the key list { [b,c, "boo"]}. t now contains updated key. Still a list.
+	# 	t = " ".join(t) #t=str(t) #t= t + " " #t = " ".join(t). t has to become a string. 
+	# 	new_list.append(t)
+	# 	desired_value = markov_dict[t]
+	# 	#print type(desired_value)
+	# 	i+=1
+	# 	if len(desired_value)>1: #choose the random value inside the list of values
+	# 		number = random.randrange(0,len(desired_value))
+	# 		desired_value =desired_value[number]
+	# 		#new_list.append(desired_value)	
+	# 	else: # when there's only 1 element in the values list 
+	# 		desired_value = desired_value[0]
+	# 		#new_list.append(desired_value)
+	# #stringifying process is here!
+
 	new_list = " ".join(new_list)
 	#print new_list
 	first_char = new_list[0].capitalize()
@@ -127,7 +132,8 @@ def print_markov(text, ngram):
 	new_list=new_list.replace(new_list[0], first_char,1)
 	print new_list
 	return new_list
-print_markov("sample3.txt", 2)
+
+print_markov("emma.txt", 3)
 
 # def print_twitter(sample_text, num_sentences): 
 # 	#num_sentences= 2

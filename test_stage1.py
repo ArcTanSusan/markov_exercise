@@ -7,6 +7,7 @@ import markov_solution
 import pytest
 import random
 
+
 def fn_exists(name):
     try:
         getattr(markov, name)
