@@ -156,7 +156,8 @@ def print_twitter(sample_text, num_sentences, ngram):
 		print_twitter(sample_text, 1, ngram)
 	else:
 		print sentences
+		return sentences
 
-print_twitter("emma.txt",2, 3)		
+#print_twitter("emma.txt",2, 3)		
 # print_markov("sample5.txt")	
 #print_twitter("emma.txt", 3)

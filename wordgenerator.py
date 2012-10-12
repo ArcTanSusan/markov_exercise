@@ -77,14 +77,8 @@ def print_markov(text):
 	# new_list = " ".join(new_list)
 	# print new_list
 	# first_char = new_list[0].capitalize()
-	# #print type(first_char)
-	# #print first_char
 	# new_list=new_list.replace(new_list[0], first_char,1)
 	# print new_list
-	# # for i in new_list: 
-	# # 	new_string = new_string + i + " "
-	# #new_list = new_list[0].capitalize()
-	# 	#new_string= new_string.capitalize()
 	# return new_list
 
 def print_num_sentences(sample_text): 

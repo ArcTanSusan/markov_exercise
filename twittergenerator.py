@@ -1,5 +1,6 @@
 import random
 import string 
+import twitter
 
 def process_file(str):
 	#open desired file
