@@ -1,3 +1,0 @@
-#!/bin/bash
-
-py.test -x test_stage2.py
